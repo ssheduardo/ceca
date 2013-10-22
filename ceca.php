@@ -108,6 +108,24 @@ class Ceca{
 	 * @var string Referencia Opcional 30 Si el comercio está realizando el pago de una compra el campo  viajará sin contenido. Si el comercio está realizando la anulación de una operación, se informará con el valor correspondiente.
 	 */
 	protected $_referencia;
+	
+	/**
+	 * Pasarela final a la que se conectara
+	 * @var string $_urlPasarela
+	 */
+	protected $_urlPasarela;
+
+	/**
+	 * URL para conectarse a la TPV en produccion
+	 * @var string
+	 */
+	protected $_urlPasarelaproduccion;
+
+	/**
+	 * URL para conectarse a la TPV en desarrollo
+	 * @var string
+	 */
+	protected $_urlPasareladesarrollo;
 
 	public function __construct()
 	{
@@ -115,7 +133,30 @@ class Ceca{
 		$this->_cifrado = 'SHA1';
 		$this->_idioma = 1; //Por defecto español
 		$this->_pago_soportado = 'SSL';
+		$this->_urlPasarelaproduccion = 'https://pgw.ceca.es/cgi-bin/tpv';
+		$this->_urlPasareladesarrollo = 'http://tpv.ceca.es:8000/cgi-bin/tpv';
 	}
 
+	public function setUrlpasarelaproduccion($urlpasarelaproduccion)
+	{
+		$this->_urlPasarelaproduccion = $urlpasarelaproduccion;
+	}
+
+	public function setUrlpasareladesarrollo($urlpasareladesarrollo)
+	{
+		$this->_urlPasareladesarrollo = $urlpasareladesarrollo;
+	}
+
+	public function setEntorno($entorno='pruebas')
+	{
+		if(strtolower(trim($entorno)) == 'real'){
+            //real
+            $this->_urlPasarela=$_urlPasarelaproduccion;
+        }
+        elseif(strtolower(trim($entorno)) == 'pruebas'){
+            //pruebas
+            $this->_urlPasarela = $_urlPasareladesarrollo;
+        } 
+	}
 
 }
