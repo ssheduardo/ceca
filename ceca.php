@@ -126,11 +126,16 @@ class Ceca{
 	 * @var string
 	 */
 	protected $_urlPasareladesarrollo;
+	/**
+	 * Clave de encriptacion
+	 * @var string $_clave_encriptacion Cualquier valor
+	 */
+	protected $_clave_encriptacion;
 
 
-	protected $_setNameForm;
-	protected $_setIdForm;
-	protected $_setSubmit;
+	protected $_nameForm;
+	protected $_idForm;
+	protected $_submit;
 
 	public function __construct()
 	{
@@ -140,7 +145,15 @@ class Ceca{
 		$this->_pago_soportado = 'SSL';
 		$this->_urlPasarelaproduccion = 'https://pgw.ceca.es/cgi-bin/tpv';
 		$this->_urlPasareladesarrollo = 'http://tpv.ceca.es:8000/cgi-bin/tpv';
+		$this->_nameForm = 'form_tpv';
+		$this->_idForm = 'id_tpv';
 		$this->_setSubmit = '';
+		$this->_clave_encriptacion = '66551188';
+	}
+
+	public function setClaveencriptacion($clave_encriptacion)
+	{
+		$this->_clave_encriptacion = $clave_encriptacion;
 	}
 
 	public function setUrlpasarelaproduccion($urlpasarelaproduccion)
@@ -165,14 +178,28 @@ class Ceca{
         } 
 	}
 
+
+	private function firma(){                
+        $lafirma = $this->_clave_encriptacion . $this->_merchantID . $this->AcquirerBIN . $this->_terminalID . $this->_num_operacion . $this->_importe . $this->_tipoMoneda . $this->_exponente . $this->_cifrado . $this->_url_ok . $this->_url_nok;
+        if(strlen(trim($lafirma)) > 0){
+            // Cálculo del SHA1                                    
+            $this->_firma = strtoupper(sha1($lafirma));           
+        }
+        else{
+            throw new Exception('Falta agregar la firma, Obligatorio');
+        }
+    }
+
+
+
 	/**
      * Asignar el nombre del formulario
      * @param string nombre Nombre del formulario
      */
 
-    public function set_nameform($nombre = 'form_tpv')
+    public function setNameform($nombre = 'form_tpv')
     {
-        $this->_setNameForm = $nombre;
+        $this->_nameForm = $nombre;
     }
 
 	/**
@@ -180,9 +207,9 @@ class Ceca{
      * @param string idform ID del formulario
      */
 
-    public function set_idform($idform = 'id_tpv')
+    public function setIdform($idform = 'id_tpv')
     {
-        $this->_setIdForm = $idform;
+        $this->_idForm = $idform;
     }
 
 	/**
@@ -191,18 +218,18 @@ class Ceca{
     * @param string texto Texto que se mostrara en el botón
     */
 
-    public function submit($nombre = 'submitceca',$texto='Enviar')
+    public function setSubmit($nombre = 'submitceca',$texto='Enviar')
     {
         if(strlen(trim($nombre))==0)
             throw new Exception('Asigne nombre al boton submit');
 
         $btnsubmit = '<input type="submit" name="'.$nombre.'" id="'.$nombre.'" value="'.$texto.'" />';
-        $this->_setSubmit = $btnsubmit;
+        $this->_submit = $btnsubmit;
     }
 
 	public function create_form(){
         $formulario='
-        <form action="'.$this->_urlPasarela.'" method="post" id="'.$this->_setNameForm.'" name="'.$this->_setNameForm.'" enctype="application/xwww- form-urlencoded" >
+        <form action="'.$this->_urlPasarela.'" method="post" id="'.$this->_idForm.'" name="'.$this->_nameForm.'" enctype="application/xwww- form-urlencoded" >
             <input type="hidden" name="MerchantID" value="'.$this->_merchantID.'" />
             <input type="hidden" name="AcquirerBIN" value="'.$this->_acquirerBIN.'" />
             <input type="hidden" name="TerminalID" value="'.$this->_terminalID.'" />
@@ -217,7 +244,7 @@ class Ceca{
             <input type="hidden" name="Pago_soportado" value="'.$this->_pago_soportado.'" />
             <input type="hidden" name="Idioma" value="'.$this->_idioma.'" />            
         ';
-        	$formulario.=$this->_setSubmit;
+        	$formulario.=$this->_submit;
         	$formulario.='
         </form>        
         ';
