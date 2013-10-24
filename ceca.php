@@ -127,6 +127,11 @@ class Ceca{
 	 */
 	protected $_urlPasareladesarrollo;
 
+
+	protected $_setNameForm;
+	protected $_setIdForm;
+	protected $_setSubmit;
+
 	public function __construct()
 	{
 		$this->_exponente = 2;
@@ -135,6 +140,7 @@ class Ceca{
 		$this->_pago_soportado = 'SSL';
 		$this->_urlPasarelaproduccion = 'https://pgw.ceca.es/cgi-bin/tpv';
 		$this->_urlPasareladesarrollo = 'http://tpv.ceca.es:8000/cgi-bin/tpv';
+		$this->_setSubmit = '';
 	}
 
 	public function setUrlpasarelaproduccion($urlpasarelaproduccion)
@@ -158,5 +164,64 @@ class Ceca{
             $this->_urlPasarela = $_urlPasareladesarrollo;
         } 
 	}
+
+	/**
+     * Asignar el nombre del formulario
+     * @param string nombre Nombre del formulario
+     */
+
+    public function set_nameform($nombre = 'form_tpv')
+    {
+        $this->_setNameForm = $nombre;
+    }
+
+	/**
+     * Asignar el id del formulario
+     * @param string idform ID del formulario
+     */
+
+    public function set_idform($idform = 'id_tpv')
+    {
+        $this->_setIdForm = $idform;
+    }
+
+	/**
+    * Generar boton submit
+    * @param string nombre Nombre y ID del botón submit
+    * @param string texto Texto que se mostrara en el botón
+    */
+
+    public function submit($nombre = 'submitceca',$texto='Enviar')
+    {
+        if(strlen(trim($nombre))==0)
+            throw new Exception('Asigne nombre al boton submit');
+
+        $btnsubmit = '<input type="submit" name="'.$nombre.'" id="'.$nombre.'" value="'.$texto.'" />';
+        $this->_setSubmit = $btnsubmit;
+    }
+
+	public function create_form(){
+        $formulario='
+        <form action="'.$this->_urlPasarela.'" method="post" id="'.$this->_setNameForm.'" name="'.$this->_setNameForm.'" enctype="application/xwww- form-urlencoded" >
+            <input type="hidden" name="MerchantID" value="'.$this->_merchantID.'" />
+            <input type="hidden" name="AcquirerBIN" value="'.$this->_acquirerBIN.'" />
+            <input type="hidden" name="TerminalID" value="'.$this->_terminalID.'" />
+            <input type="hidden" name="URL_OK" value="'.$this->_url_ok.'" />
+            <input type="hidden" name="URL_NOK" value="'.$this->_url_nok.'" />
+            <input type="hidden" name="Firma" value="'.$this->_firma.'" />
+            <input type="hidden" name="Cifrado" value="'.$this->_cifrado.'" />
+            <input type="hidden" name="Num_operacion" value="'.$this->_num_operacion.'" />
+            <input type="hidden" name="Importe" value="'.$this->_importe.'" />
+            <input type="hidden" name="TipoMoneda" value="'.$this->_tipoMoneda.'" />
+            <input type="hidden" name="Exponente " value="'.$this->_exponente.'" />
+            <input type="hidden" name="Pago_soportado" value="'.$this->_pago_soportado.'" />
+            <input type="hidden" name="Idioma" value="'.$this->_idioma.'" />            
+        ';
+        	$formulario.=$this->_setSubmit;
+        	$formulario.='
+        </form>        
+        ';
+        return $formulario;
+    }
 
 }
