@@ -177,11 +177,11 @@ class Ceca{
 	{
 		if(strtolower(trim($entorno)) == 'real'){
             //real
-            $this->_urlPasarela=$_urlPasarelaproduccion;
+            $this->_urlPasarela=$this->_urlPasarelaproduccion;
         }
         elseif(strtolower(trim($entorno)) == 'pruebas'){
             //pruebas
-            $this->_urlPasarela = $_urlPasareladesarrollo;
+            $this->_urlPasarela = $this->_urlPasareladesarrollo;
         } 
 	}
 
