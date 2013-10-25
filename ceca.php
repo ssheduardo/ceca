@@ -148,7 +148,19 @@ class Ceca{
 		$this->_nameForm = 'form_tpv';
 		$this->_idForm = 'id_tpv';
 		$this->_setSubmit = '';
-		$this->_clave_encriptacion = '66551188';
+		$this->_clave_encriptacion = '';
+		$this->_tipoMoneda = "978";
+		$this->_terminalID = '00000003';
+	}
+
+	public function setTipoMoneda($tipomoneda)
+	{
+		$this->_tipoMoneda = $tipomoneda;
+	}
+
+	public function setTerminalID($terminalid)
+	{
+		$this->_terminalID = $terminalid;
 	}
 
 	public function setClaveencriptacion($clave_encriptacion)
@@ -178,7 +190,17 @@ class Ceca{
         } 
 	}
 
-
+	public function setClaveEncriptacion($claveencriptacion='')
+	{
+		if(strlen(trim($claveencriptacion)) > 0)
+		{
+			$this->_clave_encriptacion = $claveencriptacion;
+		}
+		else
+		{
+			throw new Exception('Falta agregar la clave de encriptacion proporcionada por el comercio, Obligatorio');
+		}
+	}
 	private function firma(){                
         $lafirma = $this->_clave_encriptacion . $this->_merchantID . $this->AcquirerBIN . $this->_terminalID . $this->_num_operacion . $this->_importe . $this->_tipoMoneda . $this->_exponente . $this->_cifrado . $this->_url_ok . $this->_url_nok;
         if(strlen(trim($lafirma)) > 0){
