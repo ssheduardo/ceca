@@ -246,7 +246,7 @@ class Ceca{
 
 	public function create_form(){
         $formulario='
-        <form action="'.$this->_urlPasarela.'" method="post" id="'.$this->_idForm.'" name="'.$this->_nameForm.'" enctype="application/xwww- form-urlencoded" >
+        <form action="'.$this->_urlPasarela.'" method="post" id="'.$this->_idForm.'" name="'.$this->_nameForm.'" enctype="application/x-www-form-urlencoded" >
             <input type="hidden" name="MerchantID" value="'.$this->_merchantID.'" />
             <input type="hidden" name="AcquirerBIN" value="'.$this->_acquirerBIN.'" />
             <input type="hidden" name="TerminalID" value="'.$this->_terminalID.'" />
