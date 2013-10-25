@@ -163,11 +163,6 @@ class Ceca{
 		$this->_terminalID = $terminalid;
 	}
 
-	public function setClaveencriptacion($clave_encriptacion)
-	{
-		$this->_clave_encriptacion = $clave_encriptacion;
-	}
-
 	public function setUrlpasarelaproduccion($urlpasarelaproduccion)
 	{
 		$this->_urlPasarelaproduccion = $urlpasarelaproduccion;
