@@ -154,6 +154,88 @@ class Ceca{
 		$this->_terminalID = '00000003';
 	}
 
+	public function setMerchantID($merchantid='')
+	{
+		if(strlen(trim($merchantid)) > 0)
+		{
+			$this->_merchantID = $merchantid;
+		}
+		else
+		{
+			throw new \Exception('Falta agregar MerchantID proporcionada por el comercio, Obligatorio');
+		}
+		
+	}
+
+	public function setAcquirerBIN($acquirerbin='')
+	{
+		if(strlen(trim($acquirerbin)) > 0)
+		{
+			$this->_acquirerBIN = $acquirerbin;
+		}
+		else
+		{
+			throw new \Exception('Falta agregar AcquirerBIN proporcionada por el comercio, Obligatorio');
+		}
+		
+	}
+
+	public function setUrlOk($urlok='')
+	{
+		if(strlen(trim($urlok)) > 0)
+		{
+			$this->_url_ok = $urlok;
+		}
+		else
+		{
+			throw new \Exception('Falta agregar Url Ok de respuesta tras la compra, Obligatorio');
+		}
+		
+	}
+
+	public function setUrlNok($urlnok='')
+	{
+		if(strlen(trim($urlnok)) > 0)
+		{
+			$this->_url_nok = $urlnok;
+		}
+		else
+		{
+			throw new \Exception('Falta agregar Url NOk de respuesta cuando se produce un error, Obligatorio');
+		}
+		
+	}
+
+	public function setNumOperacion($numoperacion='')
+	{
+		if(strlen(trim($numoperacion)) > 0)
+		{
+			$this->_num_operacion = $numoperacion;
+		}
+		else
+		{
+			throw new \Exception('Falta agregar Numero de operacion (Num. de factura, pedido, etc), Obligatorio');
+		}
+		
+	}
+
+	public function setImporte($importe='')
+	{
+		if(strlen(trim($importe)) > 0)
+		{
+			$importe = $this->parseFloat($importe);
+        
+        	// Siempre será un número entero donde los dos últimos dígitos serán los céntimos de Euro.
+        	$importe = intval($importe*100);
+        	$this->_importe=$importe;
+		}
+		else
+		{
+			throw new \Exception('Falta agregar Importe, Obligatorio');
+		}
+        
+    }
+
 	public function setTipoMoneda($tipomoneda)
 	{
 		$this->_tipoMoneda = $tipomoneda;
@@ -197,6 +279,7 @@ class Ceca{
 			throw new \Exception('Falta agregar la clave de encriptacion proporcionada por el comercio, Obligatorio');
 		}
 	}
+
 	private function firma(){                
         $lafirma = $this->_clave_encriptacion . $this->_merchantID . $this->_acquirerBIN . $this->_terminalID . $this->_num_operacion . $this->_importe . $this->_tipoMoneda . $this->_exponente . $this->_cifrado . $this->_url_ok . $this->_url_nok;
         if(strlen(trim($lafirma)) > 0){
@@ -268,6 +351,52 @@ class Ceca{
         </form>        
         ';
         return $formulario;
+    }
+
+    //Utilidades
+	private function parseFloat($ptString)
+    {
+            if (strlen($ptString) == 0) {
+                    return false;
+            }
+            $pString = str_replace(" ", "", $ptString);
+            if (substr_count($pString, ",") > 1)
+            $pString = str_replace(",", "", $pString);
+            if (substr_count($pString, ".") > 1)
+            $pString = str_replace(".", "", $pString);
+            $pregResult = array();
+            $commaset = strpos($pString,',');
+            if ($commaset === false) {
+                    $commaset = -1;
+            }
+            $pointset = strpos($pString,'.');
+            if ($pointset === false) {
+                    $pointset = -1;
+            }
+            $pregResultA = array();
+            $pregResultB = array();
+            if ($pointset < $commaset) {
+                    preg_match('#(([-]?[0-9]+(\.[0-9])?)+(,[0-9]+)?)#', $pString, $pregResultA);
+            }
+            preg_match('#(([-]?[0-9]+(,[0-9])?)+(\.[0-9]+)?)#', $pString, $pregResultB);
+            if ((isset($pregResultA[0]) && (!isset($pregResultB[0])
+            || strstr($preResultA[0],$pregResultB[0]) == 0
+            || !$pointset))) {
+                    $numberString = $pregResultA[0];
+                    $numberString = str_replace('.','',$numberString);
+                    $numberString = str_replace(',','.',$numberString);
+            }
+            elseif (isset($pregResultB[0]) && (!isset($pregResultA[0])
+            || strstr($pregResultB[0],$preResultA[0]) == 0
+            || !$commaset)) {
+                    $numberString = $pregResultB[0];
+                    $numberString = str_replace(',','',$numberString);
+            }
+            else {
+                    return false;
+            }
+            $result = (float)$numberString;
+            return $result;
     }
 
 }
