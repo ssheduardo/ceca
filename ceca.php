@@ -1,5 +1,6 @@
 <?php
 namespace Ubublog\Ceca;
+use Exception;
 /**
 * Ceca
 * @package ceca
@@ -193,7 +194,7 @@ class Ceca{
 		}
 		else
 		{
-			throw new Exception('Falta agregar la clave de encriptacion proporcionada por el comercio, Obligatorio');
+			throw new \Exception('Falta agregar la clave de encriptacion proporcionada por el comercio, Obligatorio');
 		}
 	}
 	private function firma(){                
