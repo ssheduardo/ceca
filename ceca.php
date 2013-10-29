@@ -342,7 +342,7 @@ class Ceca{
             <input type="hidden" name="Num_operacion" value="'.$this->_num_operacion.'" />
             <input type="hidden" name="Importe" value="'.$this->_importe.'" />
             <input type="hidden" name="TipoMoneda" value="'.$this->_tipoMoneda.'" />
-            <input type="hidden" name="Exponente " value="'.$this->_exponente.'" />
+            <input type="hidden" name="Exponente" value="'.$this->_exponente.'" />
             <input type="hidden" name="Pago_soportado" value="'.$this->_pago_soportado.'" />
             <input type="hidden" name="Idioma" value="'.$this->_idioma.'" />            
         ';
@@ -380,14 +380,14 @@ class Ceca{
             }
             preg_match('#(([-]?[0-9]+(,[0-9])?)+(\.[0-9]+)?)#', $pString, $pregResultB);
             if ((isset($pregResultA[0]) && (!isset($pregResultB[0])
-            || strstr($preResultA[0],$pregResultB[0]) == 0
+            || strstr($pregResultA[0],$pregResultB[0]) == 0
             || !$pointset))) {
                     $numberString = $pregResultA[0];
                     $numberString = str_replace('.','',$numberString);
                     $numberString = str_replace(',','.',$numberString);
             }
             elseif (isset($pregResultB[0]) && (!isset($pregResultA[0])
-            || strstr($pregResultB[0],$preResultA[0]) == 0
+            || strstr($pregResultB[0],$pregResultA[0]) == 0
             || !$commaset)) {
                     $numberString = $pregResultB[0];
                     $numberString = str_replace(',','',$numberString);
