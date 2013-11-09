@@ -1,19 +1,22 @@
+TPV CECA
+========
+
 Historia
 --------
-Esta clase la desarrolle por un amigo que me comento si tenía una pasarela de pago para la TPV Ceca (solo había usado sermepa / redsys).
+Esta clase la desarrolle por un amigo que me comento si tenía una pasarela de pago para la **TPV Ceca** (solo había usado [sermepa/redsys](https://github.com/ssheduardo/sermepa)).
 
-Así que me puse a investigar, recopilar información, preguntar en foros. Y gracias a la ayuda desistenresa de muchas personas, obtuve todo necesario para realizarlo.
+Así que me puse a investigar, recopilar información, preguntar en foros. Y gracias a la ayuda desinteresa de muchas personas, obtuve todo necesario para realizarlo.
 
-Como mi clase sermepa/resys es fácil de integrar en nuestros proyectos y hasta puedes usarlo de base para crear uno que otro plugin.
+Esta clase es fácil de integrar en nuestros proyectos y hasta puedes usarlo de base para crear un plugin para otros framework.
 
-Muchas gracias a Miquel Camps Orteza, Alberto Molpeceres y más personas que han colaborado con este pequeño proyecto.
+Muchas gracias a Miquel Camps, Alberto Molpeceres y más personas que han proporcionado los medios necesarios para finalizar este proyecto.
 
 
 Introducción
 ------------
-La clase ceca sirve para generar el formulario que se comunicará con la pasarela de pagos que usan utilizan bancos y cajas: [Caja badajoz, Caja Círculo, Caja de Burgos, CajaSur, Caja Granada, Caja de guadalajara, Caja Rioja, Caixa Laietana, Caja Murcia, CajAstur, Sanostra, La Caja de Canarias, CAN (Caja navarra), Caja Canarias, Caja Cantabria, Caja Segovia, CaixaNova, IberCaja, CAM, Caixa Galicia, Caja de Ávila, BBK, Caja Vital Kutxa, Caja de Extremadura, Kutxa, Caja duero, CCM, Cajasol.]
+La clase CECA sirve para generar el formulario que se comunicará con la pasarela de pagos que usan utilizan bancos y cajas: [Caja badajoz, Caja Círculo, Caja de Burgos, CajaSur, Caja Granada, Caja de guadalajara, Caja Rioja, Caixa Laietana, Caja Murcia, CajAstur, Sanostra, La Caja de Canarias, CAN (Caja navarra), Caja Canarias, Caja Cantabria, Caja Segovia, CaixaNova, IberCaja, CAM, Caixa Galicia, Caja de Ávila, BBK, Caja Vital Kutxa, Caja de Extremadura, Kutxa, Caja duero, CCM, Cajasol.]
 
-Es una versión que ira creciendo, mejorando y actualizandose.
+Es una versión que ira creciendo, mejorando y actualizándose.
 
 Si lo usas en algún proyecto y te fue de utilidad estaré más que contento de poder haber aportado un granito de arena.
 
@@ -21,7 +24,7 @@ Requerimientos
 --------------
 PHP 5.3 o superior.
 
-Creditos
+Créditos
 --------
 	Clase creada por Eduardo Diaz, Madrid 2013
 	Twitter: @eduardo_dx
@@ -29,11 +32,15 @@ Creditos
 
 Como usar la clase
 ------------------
-Primeramente clonamos la clase
-git clone git@github.com:ssheduardo/
+**Paso 1:** Clonamos la clase
 
-Ejemplo
-Primero asignamos los parámetros
+	git clone git@github.com:ssheduardo/ceca.git
+
+**Paso 2:** Incluir la clase
+
+	include_once 'ceca/ceca.php';
+
+**Paso 3:** Configuramos la clase
 
 	use Ubublog\Ceca\Ceca as Tpv;
 	try{
@@ -57,7 +64,7 @@ Primero asignamos los parámetros
 
 	//xxxxx -> reemplezar por los parámetros proporcionados por el banco
 
-Opcional
+#####Opcional
 
 	//Asignar nombre a name del formulario
 	$tpv->setNameform('nombre_formulario');	
@@ -69,15 +76,15 @@ Opcional
 	$tpv->submit('nombre_submit','texto_del_boton');
 
 
-Generamos el formulario
+#####Generamos el formulario
 
 	//En el ejemplo anterior lo hemos usado
 	$formulario = $tpv->create_form();
 
 Con esto generamos el form para la comunicación con la pasarela de pagos.
-Solo queda agregar un input submit personalizado o por medio de javascript para realizar el submit.
+Solo queda agregar un `input submit personalizado` o por medio de `javascript` para realizar el submit.
 
-Redirección automática
+#####Redirección automática
 
 	//Incluyo este método de sermepa a esta clase, gracias a jaumecornado (github)
 	Podemos forzar la redirección sin pasar por el método create_form()
@@ -85,8 +92,6 @@ Redirección automática
 	
 	[Esto método llamaría a create_form y lanzaría el submit por javacript, no hace falta agregar el método setSubmit()]
 
->Nota:
-	Por defecto se conecta por la pasarela de pruebas, para cambiar a un entorno real usar el método: setEntorno('produccion').
+>**Nota:**
+	Por defecto se conecta por la pasarela de pruebas, para cambiar a un entorno real usar el método: **setEntorno('produccion')**.
 
-
-	

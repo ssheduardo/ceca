@@ -145,6 +145,7 @@ class Ceca{
 		$this->_pago_soportado = 'SSL';
 		$this->_urlPasarelaproduccion = 'https://pgw.ceca.es/cgi-bin/tpv';
 		$this->_urlPasareladesarrollo = 'http://tpv.ceca.es:8000/cgi-bin/tpv';
+		$this->_urlPasarela = $this->_urlPasareladesarrollo;
 		$this->_nameForm = 'form_tpv';
 		$this->_idForm = 'id_tpv';
 		$this->_setSubmit = '';
