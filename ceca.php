@@ -223,7 +223,7 @@ class Ceca{
 	{
 		if(strlen(trim($importe)) > 0)
 		{
-			$importe = $this->parseFloat($importe);
+			$importe = $this->priceToSQL($importe);
         
         	// Siempre será un número entero donde los dos últimos dígitos serán los céntimos de Euro.
         	$importe = intval($importe*100);
@@ -354,6 +354,26 @@ class Ceca{
     }
 
     //Utilidades
+    //http://stackoverflow.com/a/9111049/444225
+    private function priceToSQL($price)
+	{
+	    $price = preg_replace('/[^0-9\.,]*/i', '', $price);
+	    $price = str_replace(',', '.', $price);
+
+	    if(substr($price, -3, 1) == '.')
+	    {
+	        $price = explode('.', $price);
+	        $last = array_pop($price);
+	        $price = join($price, '').'.'.$last;
+	    }
+	    else
+	    {
+	        $price = str_replace('.', '', $price);
+	    }
+
+	    return $price;
+	}
+	
 	private function parseFloat($ptString)
     {
             if (strlen($ptString) == 0) {
