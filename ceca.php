@@ -284,7 +284,7 @@ class Ceca{
         $lafirma = $this->_clave_encriptacion . $this->_merchantID . $this->_acquirerBIN . $this->_terminalID . $this->_num_operacion . $this->_importe . $this->_tipoMoneda . $this->_exponente . $this->_cifrado . $this->_url_ok . $this->_url_nok;
         if(strlen(trim($lafirma)) > 0){
             // Cálculo del SHA1                                    
-            $this->_firma = strtoupper(sha1($lafirma));           
+            $this->_firma = strtolower(sha1($lafirma));           
         }
         else{
             throw new Exception('Falta agregar la firma, Obligatorio');
