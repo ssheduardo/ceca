@@ -380,6 +380,19 @@ class Ceca{
         $this->_submit = $btnsubmit;
     }
 
+ 	/**
+ 	 * Iniciar redirección automática
+ 	 * @return string Se ejecuta la redicción automática por javascript
+ 	 */
+    public function launchRedirection() {
+            echo $this->create_form();
+            echo '<script>document.forms["'.$this->_nameForm.'"].submit();</script>';
+    }
+
+    /**
+     * Creacion del formulario
+     * @return string Retorna el formulario para la TPV
+     */
 	public function create_form(){
 		$this->firma();
         $formulario='
