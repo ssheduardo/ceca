@@ -154,6 +154,11 @@ class Ceca{
 		$this->_terminalID = '00000003';
 	}
 
+	/**
+	 * Asignar código comercio 
+	 * @param integer $merchantid Código identificativo del comercio (Proporcionado por el Comercio).
+	 */
+	
 	public function setMerchantID($merchantid='')
 	{
 		if(strlen(trim($merchantid)) > 0)
@@ -167,6 +172,10 @@ class Ceca{
 		
 	}
 
+	/**
+	 * Asignar código entidad
+	 * @param string $acquirerbin Código identificativo de su Caja (Proporcionado por el Comercio).
+	 */
 	public function setAcquirerBIN($acquirerbin='')
 	{
 		if(strlen(trim($acquirerbin)) > 0)
