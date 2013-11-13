@@ -25,7 +25,7 @@ class Ceca{
 
 	/**
 	 * 
-	 * @var string $_num_operacion Requerido 50 Identifica para el comercio la operación, nº de pedido, factura,  albaran, etc.… Puede ser alfanumérico pero están prohibidos los caracteres extraños típicos como ¿,?,%,&,*,etc.
+	 * @var string $_num_operacion Requerido 50
 	 */
 	protected $_num_operacion;
 
@@ -35,7 +35,7 @@ class Ceca{
 	protected $_importe;
 
 	/**
-	 * @var string $_tipoMoneda Requerido 3 Es el código ISO-4217 correspondiente a la moneda en la que se  efectúa el pago. Contendrá el valor 978 para Euros.
+	 * @var string $_tipoMoneda Requerido 3
 	 */
 	protected $_tipoMoneda;
 
@@ -45,14 +45,13 @@ class Ceca{
 	protected $_exponente;
 
 	/**
-	 * Esta URL no deberá utilizarse  para actualizar la operación como pagada en el servidor del  comercio. Ver más información al final de la tabla.
-	 * @var string $_url_ok Requerido 500 URL completa. Es la URL determinada por el comercio a  la que Cecabank devolverá el control en el caso de que la  operación finalice correctamente.
+	 * @var string $_url_ok Requerido 500 URL completa. 
 	 */
 	protected $_url_ok;
 
 	/**
 	 * 
-	 * @var string $_url_nok Requerido 500 URL completa. Es la URL determinada por el comercio a  la que Cecabank devolverá el control en el caso de que la  operación no pueda realizarse por algún motivo.
+	 * @var string $_url_nok Requerido 500 URL completa. 
 	 */
 	protected $_url_nok;
 
@@ -157,8 +156,7 @@ class Ceca{
 	/**
 	 * Asignar código comercio 
 	 * @param integer $merchantid Código identificativo del comercio (Proporcionado por el Comercio).
-	 */
-	
+	 */	
 	public function setMerchantID($merchantid='')
 	{
 		if(strlen(trim($merchantid)) > 0)
@@ -189,6 +187,11 @@ class Ceca{
 		
 	}
 
+	/**
+	 * Asignar url_ok
+	 * @param string $urlok Es la URL determinada por el comercio a la que Cecabank devolverá el control en el caso de que la  operación finalice correctamente.
+	 *                      Esta URL no deberá utilizarse  para actualizar la operación como pagada en el servidor del  comercio.
+	 */
 	public function setUrlOk($urlok='')
 	{
 		if(strlen(trim($urlok)) > 0)
@@ -202,6 +205,10 @@ class Ceca{
 		
 	}
 
+	/**
+	 * Asignar url_nok
+	 * @param string $urlnok Es la URL determinada por el comercio a  la que Cecabank devolverá el control en el caso de que la  operación no pueda realizarse por algún motivo.
+	 */
 	public function setUrlNok($urlnok='')
 	{
 		if(strlen(trim($urlnok)) > 0)
@@ -215,6 +222,10 @@ class Ceca{
 		
 	}
 
+	/**
+	 * Asignar número de pedido
+	 * @param string $numoperacion Identifica para el comercio la operación, nº de pedido, factura,  albaran, etc.… Puede ser alfanumérico pero están prohibidos los caracteres extraños típicos como ¿,?,%,&,*,etc.
+	 */
 	public function setNumOperacion($numoperacion='')
 	{
 		if(strlen(trim($numoperacion)) > 0)
@@ -228,6 +239,10 @@ class Ceca{
 		
 	}
 
+	/**
+	 * Asignar importe a pagar
+	 * @param string $importe Importe a pagar, se puede especificar con comas y puntos (Ejm. 10,67 / 10.32)
+	 */
 	public function setImporte($importe='')
 	{
 		if(strlen(trim($importe)) > 0)
@@ -245,38 +260,62 @@ class Ceca{
         
     }
 
+    /**
+     * Asignar el tipo de moneda
+     * @param integer $tipomoneda Es el código ISO-4217 correspondiente a la moneda en la que se  efectúa el pago. Contendrá el valor 978 para Euros.
+     */
 	public function setTipoMoneda($tipomoneda)
 	{
 		$this->_tipoMoneda = $tipomoneda;
 	}
 
-	public function setTerminalID($terminalid)
+	/**
+	 * Asignar el ID del terminal
+	 * @param string $terminalid Código identificativo de un terminal dentro de un comercio. Por defecto es 00000003
+	 */
+	public function setTerminalID($terminalid='')
 	{
 		$this->_terminalID = $terminalid;
 	}
 
-	public function setUrlpasarelaproduccion($urlpasarelaproduccion)
+	/**
+	 * Asignar URL de producción
+	 * @param string $urlpasarelaproduccion Url del entorno de producción
+	 */
+	public function setUrlpasarelaproduccion($urlpasarelaproduccion='')
 	{
 		$this->_urlPasarelaproduccion = $urlpasarelaproduccion;
 	}
 
-	public function setUrlpasareladesarrollo($urlpasareladesarrollo)
+	/**
+	 * Asignar URL de desarrollo
+	 * @param string $urlpasareladesarrollo Url del entorno de desarrollo
+	 */
+	public function setUrlpasareladesarrollo($urlpasareladesarrollo='')
 	{
 		$this->_urlPasareladesarrollo = $urlpasareladesarrollo;
 	}
 
-	public function setEntorno($entorno='pruebas')
+	/**
+	 * Asignar entorno
+	 * @param string $entorno Asignar el tipo de entorno que usaremos para comunicarnos con la TPV (por defecto modo desarrollo)
+	 */
+	public function setEntorno($entorno='desarrollo')
 	{
-		if(strtolower(trim($entorno)) == 'real'){
-            //real
+		if(strtolower(trim($entorno)) == 'produccion'){
+            //produccion
             $this->_urlPasarela=$this->_urlPasarelaproduccion;
         }
-        elseif(strtolower(trim($entorno)) == 'pruebas'){
-            //pruebas
+        elseif(strtolower(trim($entorno)) == 'desarrollo'){
+            //desarrollo
             $this->_urlPasarela = $this->_urlPasareladesarrollo;
         } 
 	}
 
+	/**
+	 * Clave de encriptación
+	 * @param string $claveencriptacion Utilizada para firmar las llamadas realizadas al TPV. Las claves son distintas en pruebas y en real. (Proporcionado por el Comercio).
+	 */
 	public function setClaveEncriptacion($claveencriptacion='')
 	{
 		if(strlen(trim($claveencriptacion)) > 0)
@@ -289,6 +328,10 @@ class Ceca{
 		}
 	}
 
+	/**
+	 * Generar la firma
+	 * @return string Este método construye la firma con los parámetros anteriormente asignados
+	 */
 	private function firma(){                
         $lafirma = $this->_clave_encriptacion . $this->_merchantID . $this->_acquirerBIN . $this->_terminalID . $this->_num_operacion . $this->_importe . $this->_tipoMoneda . $this->_exponente . $this->_cifrado . $this->_url_ok . $this->_url_nok;
         if(strlen(trim($lafirma)) > 0){
@@ -381,51 +424,6 @@ class Ceca{
 	    }
 
 	    return $price;
-	}
-	
-	private function parseFloat($ptString)
-    {
-            if (strlen($ptString) == 0) {
-                    return false;
-            }
-            $pString = str_replace(" ", "", $ptString);
-            if (substr_count($pString, ",") > 1)
-            $pString = str_replace(",", "", $pString);
-            if (substr_count($pString, ".") > 1)
-            $pString = str_replace(".", "", $pString);
-            $pregResult = array();
-            $commaset = strpos($pString,',');
-            if ($commaset === false) {
-                    $commaset = -1;
-            }
-            $pointset = strpos($pString,'.');
-            if ($pointset === false) {
-                    $pointset = -1;
-            }
-            $pregResultA = array();
-            $pregResultB = array();
-            if ($pointset < $commaset) {
-                    preg_match('#(([-]?[0-9]+(\.[0-9])?)+(,[0-9]+)?)#', $pString, $pregResultA);
-            }
-            preg_match('#(([-]?[0-9]+(,[0-9])?)+(\.[0-9]+)?)#', $pString, $pregResultB);
-            if ((isset($pregResultA[0]) && (!isset($pregResultB[0])
-            || strstr($pregResultA[0],$pregResultB[0]) == 0
-            || !$pointset))) {
-                    $numberString = $pregResultA[0];
-                    $numberString = str_replace('.','',$numberString);
-                    $numberString = str_replace(',','.',$numberString);
-            }
-            elseif (isset($pregResultB[0]) && (!isset($pregResultA[0])
-            || strstr($pregResultB[0],$pregResultA[0]) == 0
-            || !$commaset)) {
-                    $numberString = $pregResultB[0];
-                    $numberString = str_replace(',','',$numberString);
-            }
-            else {
-                    return false;
-            }
-            $result = (float)$numberString;
-            return $result;
-    }
+	}	
 
 }
