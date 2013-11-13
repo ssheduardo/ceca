@@ -6,7 +6,7 @@ Así que me puse a investigar, recopilar información, preguntar en foros. Y gra
 
 Como mi clase sermepa/resys es fácil de integrar en nuestros proyectos y hasta puedes usarlo de base para crear uno que otro plugin.
 
-Muchas gracias a Miquel Camps Orteza, Alberto Molpeceres y más personas que han colaborado con este pequeño protecto.
+Muchas gracias a Miquel Camps Orteza, Alberto Molpeceres y más personas que han colaborado con este pequeño proyecto.
 
 
 Introducción
