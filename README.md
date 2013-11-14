@@ -95,3 +95,4 @@ Solo queda agregar un `input submit personalizado` o por medio de `javascript` p
 >**Nota:**
 	Por defecto se conecta por la pasarela de pruebas, para cambiar a un entorno real usar el método: **setEntorno('produccion')**.
 
+

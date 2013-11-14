@@ -24,7 +24,6 @@ class Ceca{
 	protected $_terminalID;
 
 	/**
-	 * 
 	 * @var string $_num_operacion Requerido 50
 	 */
 	protected $_num_operacion;
