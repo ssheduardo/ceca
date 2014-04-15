@@ -73,7 +73,7 @@ Como usar la clase
 	$tpv->setIdform('id_formulario');	
 
 	//Generar el input submit (si en caso no se usa javascript u otro)
-	$tpv->submit('nombre_submit','texto_del_boton');
+	$tpv->setSubmit('nombre_submit','texto_del_boton');
 
 
 #####Generamos el formulario
@@ -94,5 +94,4 @@ Solo queda agregar un `input submit personalizado` o por medio de `javascript` p
 
 >**Nota:**
 	Por defecto se conecta por la pasarela de pruebas, para cambiar a un entorno real usar el método: **setEntorno('produccion')**.
-
 
