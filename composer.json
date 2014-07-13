@@ -1,5 +1,5 @@
 {
-   "name": "ceca/ceca",
+   "name": "ubublog/ceca",
    "version": "1.0.0",
    "description": "Pasarela de pago ceca",
    "keywords": ["ceca", "payment", "pasarela","lacaixa","sabadell","tpv", "Caja badajoz", "Caja Círculo", "Caja de Burgos", "CajaSur", "Caja Granada", "Caja de guadalajara", "Caja Rioja", "Caixa Laietana", "Caja Murcia", "CajAstur", "Sanostra", "La Caja de Canarias", "CAN (Caja navarra)", "Caja Canarias", "Caja Cantabria", "Caja Segovia", "CaixaNova", "IberCaja", "CAM", "Caixa Galicia", "Caja de Avila", "BBK", "Caja Vital Kutxa", "Caja de Extremadura", "Kutxa", "Caja duero", "CCM", "Cajasol"],
