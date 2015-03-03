@@ -250,7 +250,7 @@ class Ceca{
 			$importe = $this->priceToSQL($importe);
         
         	// Siempre será un número entero donde los dos últimos dígitos serán los céntimos de Euro.
-        	$importe = intval(strval(importe*100));
+        	$importe = intval(strval($importe*100));
         	$this->_importe=$importe;
 		}
 		else
