@@ -343,6 +343,14 @@ class Ceca{
         }
     }
 
+	/**
+	* Asignar la descripcion
+	* @param string $descripcion Utilizada para mostrar la información descriptiva sobre la compra en el TPV
+	*/
+	public function setDescripcion($descripcion)
+	{
+		$this->_descripcion = $descripcion;
+	}
 
 
 	/**
@@ -409,6 +417,7 @@ class Ceca{
             <input type="hidden" name="TipoMoneda" value="'.$this->_tipoMoneda.'" />
             <input type="hidden" name="Exponente" value="'.$this->_exponente.'" />
             <input type="hidden" name="Pago_soportado" value="'.$this->_pago_soportado.'" />
+            <input type="hidden" name="Descripcion" value="'.$this->_descripcion.'" />
             <input type="hidden" name="Idioma" value="'.$this->_idioma.'" />            
         ';
         	$formulario.=$this->_submit;
