@@ -60,7 +60,7 @@ class Ceca{
 	protected $_firma;
 	
 	/**
-	 * @var string $_cifrado Requerido 4 Valor fijo SHA1.
+	 * @var string $_cifrado Requerido 4 Valor fijo SHA2.
 	 */
 	protected $_cifrado;
 
@@ -139,11 +139,11 @@ class Ceca{
 	public function __construct()
 	{
 		$this->_exponente = 2;
-		$this->_cifrado = 'SHA1';
+		$this->_cifrado = 'SHA2';
 		$this->_idioma = 1; //Por defecto español
 		$this->_pago_soportado = 'SSL';
-		$this->_urlPasarelaproduccion = 'https://pgw.ceca.es/cgi-bin/tpv';
-		$this->_urlPasareladesarrollo = 'http://tpv.ceca.es:8000/cgi-bin/tpv';
+		$this->_urlPasarelaproduccion = 'https://pgw.ceca.es/tpvweb/tpv/compra.action';
+		$this->_urlPasareladesarrollo = 'https://tpv.ceca.es/tpvweb/tpv/compra.action';
 		$this->_urlPasarela = $this->_urlPasareladesarrollo;
 		$this->_nameForm = 'form_tpv';
 		$this->_idForm = 'id_tpv';
@@ -335,8 +335,8 @@ class Ceca{
 	private function firma(){                
         $lafirma = $this->_clave_encriptacion . $this->_merchantID . $this->_acquirerBIN . $this->_terminalID . $this->_num_operacion . $this->_importe . $this->_tipoMoneda . $this->_exponente . $this->_cifrado . $this->_url_ok . $this->_url_nok;
         if(strlen(trim($lafirma)) > 0){
-            // Cálculo del SHA1                                    
-            $this->_firma = strtolower(sha1($lafirma));           
+            // Cálculo del SHA256
+            $this->_firma = strtolower(hash('sha256', $lafirma));           
         }
         else{
             throw new Exception('Falta agregar la firma, Obligatorio');
